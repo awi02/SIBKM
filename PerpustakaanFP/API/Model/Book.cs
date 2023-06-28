@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using API.Model;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API.Model
 {
     [Table("Book")]
     public class Book
     {
-        [Key, Column(name: "Id")]
-        public int Id { get; set; }
+        [Key, Column("Id", TypeName = "char(8)")]
+        public string Id { get; set; }
         [Column(name: "BookTitle", TypeName = "varchar(255)")]
         public String BookTitle { get; set; }
         [Column(name: "Author", TypeName = "varchar(50)")]
@@ -20,6 +22,7 @@ namespace API.Model
         public string PublicationYear { get; set; }
 
         //cardinality
-        public Borrow Borrow { get; set; }
+        [JsonIgnore]
+        public ICollection<Borrow>? Borrow { get; set; }
     }
 }

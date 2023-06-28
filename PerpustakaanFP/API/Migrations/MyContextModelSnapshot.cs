@@ -24,8 +24,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Model.Book", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int")
+                    b.Property<string>("Id")
+                        .HasColumnType("char(8)")
                         .HasColumnName("Id");
 
                     b.Property<string>("Author")
@@ -63,49 +63,83 @@ namespace API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnName("id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int")
+                    b.Property<string>("B_BookId")
+                        .HasColumnType("char(8)")
                         .HasColumnName("BookId");
 
-                    b.Property<DateTime>("BorrowDate")
+                    b.Property<string>("B_MemberId")
+                        .HasColumnType("char(8)")
+                        .HasColumnName("MemberId");
+
+                    b.Property<DateTime?>("BorrowDate")
                         .HasColumnType("datetime")
                         .HasColumnName("BorrowDate");
 
-                    b.Property<int>("Fine")
-                        .HasColumnType("int")
-                        .HasColumnName("Fine");
-
-                    b.Property<int>("MemberId")
-                        .HasColumnType("int")
-                        .HasColumnName("MemberId");
-
-                    b.Property<int>("OfficerId")
-                        .HasColumnType("int")
-                        .HasColumnName("OfficerId");
-
-                    b.Property<DateTime>("ReturnDate")
+                    b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime")
                         .HasColumnName("Returndate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberId");
+                    b.HasIndex("B_BookId");
+
+                    b.HasIndex("B_MemberId");
 
                     b.ToTable("Borrow");
                 });
 
-            modelBuilder.Entity("API.Model.Member", b =>
+            modelBuilder.Entity("API.Models.AccountRoles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnName("id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountId")
+                        .IsRequired()
+                        .HasColumnType("char(8)")
+                        .HasColumnName("AccountId");
+
+                    b.Property<int>("Roleid")
+                        .HasColumnType("int")
+                        .HasColumnName("Roleid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("Roleid");
+
+                    b.ToTable("AccountRoles");
+                });
+
+            modelBuilder.Entity("API.Models.Accounts", b =>
+                {
+                    b.Property<string>("memberId")
+                        .HasColumnType("char(8)")
+                        .HasColumnName("memberId");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("password");
+
+                    b.HasKey("memberId");
+
+                    b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("API.Models.Member", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("char(8)")
+                        .HasColumnName("Id");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -119,64 +153,21 @@ namespace API.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("varchar(25)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("FirstName");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("varchar(25)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("LastName");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("PhoneNumber");
 
                     b.HasKey("Id");
 
                     b.ToTable("Member");
-                });
-
-            modelBuilder.Entity("API.Models.AccountRoles", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int")
-                        .HasColumnName("AccountId");
-
-                    b.Property<int>("role_id")
-                        .HasColumnType("int")
-                        .HasColumnName("role_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.HasIndex("role_id");
-
-                    b.ToTable("AccountRoles");
-                });
-
-            modelBuilder.Entity("API.Models.Accounts", b =>
-                {
-                    b.Property<int>("memberId")
-                        .HasColumnType("int")
-                        .HasColumnName("memberId");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)")
-                        .HasColumnName("password");
-
-                    b.HasKey("memberId");
-
-                    b.ToTable("Accounts");
                 });
 
             modelBuilder.Entity("API.Models.Roles", b =>
@@ -190,7 +181,7 @@ namespace API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("name");
 
                     b.HasKey("Id");
@@ -198,22 +189,17 @@ namespace API.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("API.Model.Book", b =>
-                {
-                    b.HasOne("API.Model.Borrow", "Borrow")
-                        .WithMany("Book")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Borrow");
-                });
-
             modelBuilder.Entity("API.Model.Borrow", b =>
                 {
-                    b.HasOne("API.Model.Member", "Member")
+                    b.HasOne("API.Model.Book", "Book")
                         .WithMany("Borrow")
-                        .HasForeignKey("MemberId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("B_BookId");
+
+                    b.HasOne("API.Models.Member", "Member")
+                        .WithMany("Borrow")
+                        .HasForeignKey("B_MemberId");
+
+                    b.Navigation("Book");
 
                     b.Navigation("Member");
                 });
@@ -222,13 +208,11 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Accounts", "Accounts")
                         .WithMany("AccountRoles")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("AccountId");
 
                     b.HasOne("API.Models.Roles", "Roles")
                         .WithMany("AccountRoles")
-                        .HasForeignKey("role_id")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("Roleid");
 
                     b.Navigation("Accounts");
 
@@ -237,30 +221,30 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Accounts", b =>
                 {
-                    b.HasOne("API.Model.Member", "Member")
+                    b.HasOne("API.Models.Member", "Member")
                         .WithOne("Accounts")
                         .HasForeignKey("API.Models.Accounts", "memberId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("API.Model.Borrow", b =>
+            modelBuilder.Entity("API.Model.Book", b =>
                 {
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("API.Model.Member", b =>
-                {
-                    b.Navigation("Accounts")
-                        .IsRequired();
-
                     b.Navigation("Borrow");
                 });
 
             modelBuilder.Entity("API.Models.Accounts", b =>
                 {
                     b.Navigation("AccountRoles");
+                });
+
+            modelBuilder.Entity("API.Models.Member", b =>
+                {
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Borrow");
                 });
 
             modelBuilder.Entity("API.Models.Roles", b =>

@@ -1,19 +1,20 @@
 ﻿using API.Base;
+using API.Handlers;
 using API.Models;
 using API.Repositories.Data;
 using API.Repositories.Interface;
 using API.ViewModels;
-using API.Handlers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-/*    [Authorize]*/
+    //[Authorize(Roles ="admin")]
     public class AccountsController : GeneralController<IAccountsRepository, Accounts, string>
     {
         private readonly ITokenService _tokenService;
@@ -21,16 +22,15 @@ namespace API.Controllers
         private readonly IAccountRoleRepository _accountRoleRepository;
 
         public AccountsController(
-            IAccountsRepository repository,
+            IAccountsRepository repos,
             ITokenService tokenService,
-            IMemberRepository memberRepository,
-            IAccountRoleRepository accountRoleRepository) : base(repository)
+            IMemberRepository employeeRepository,
+            IAccountRoleRepository accountRoleRepository) : base(repos)
         {
             _tokenService = tokenService;
-            _memberRepository = memberRepository;
+            _memberRepository = employeeRepository;
             _accountRoleRepository = accountRoleRepository;
         }
-
         [AllowAnonymous]
         [HttpPost("Login")]
         public ActionResult Login(LoginVM loginVM)
@@ -67,7 +67,6 @@ namespace API.Controllers
                 Data = token
             });
         }
-
         [AllowAnonymous]
         [HttpPost("Register")]
         public ActionResult Register(RegisterVM registerVM)
@@ -79,7 +78,7 @@ namespace API.Controllers
                 {
                     Code = StatusCodes.Status200OK,
                     Status = HttpStatusCode.OK.ToString(),
-                    Message = "Insert Success"
+                    Message = "Register Success"
                 });
             }
 
@@ -87,7 +86,7 @@ namespace API.Controllers
             {
                 Code = StatusCodes.Status500InternalServerError,
                 Status = HttpStatusCode.InternalServerError.ToString(),
-                Errors = "Insert Failed / Lost Connection"
+                Errors = "Register Failed/Lost Connection"
             });
         }
     }
