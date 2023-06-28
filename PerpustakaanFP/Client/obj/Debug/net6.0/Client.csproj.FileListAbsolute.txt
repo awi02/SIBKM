@@ -272,3 +272,6 @@ C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\obj\Debug\n
 C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\obj\Debug\net6.0\Client.pdb
 C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\obj\Debug\net6.0\Client.genruntimeconfig.cache
 C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\obj\Debug\net6.0\ref\Client.dll
+C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\awilu\source\repos\daythreeproj\SIBKM\PerpustakaanFP\Client\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

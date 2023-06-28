@@ -10,7 +10,7 @@ namespace Client.Repositories
         private readonly string request;
         private readonly HttpClient httpClient;
 
-        public AccountRepository(string request = "Account/")
+        public AccountRepository(string request = "Accounts/")
         {
             this.request = request;
             httpClient = new HttpClient
@@ -23,7 +23,7 @@ namespace Client.Repositories
         {
             ResponseDataVM<string> entityVM = null;
             StringContent content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
-            using (var response = httpClient.PostAsync(request + "login", content).Result)
+            using (var response = httpClient.PostAsync(request + "Login", content).Result)
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entityVM = JsonConvert.DeserializeObject<ResponseDataVM<string>>(apiResponse);

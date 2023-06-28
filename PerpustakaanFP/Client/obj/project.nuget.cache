@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "7oRKo/v+ONVd0eyA3Jjcx2cxnElpZnIcgjVOVH7U021RxOybK8yQe53IbkbsvrtAhA3hLktL6Ce3M9C3p/Dc3w==",
+  "dgSpecHash": "cxJPMayIb81BrNA0qpfclZFDFu0X9HLrLTGulieF12X83jWRbP7+W5hoziFxaUBbq20bqo+BgSRf5Oan1yCoxA==",
   "success": true,
   "projectFilePath": "C:\\Users\\awilu\\source\\repos\\daythreeproj\\SIBKM\\PerpustakaanFP\\Client\\Client.csproj",
   "expectedPackageFiles": [
@@ -223,8 +223,8 @@
     "C:\\Users\\awilu\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\awilu\\.nuget\\packages\\system.text.encoding.codepages\\6.0.0\\system.text.encoding.codepages.6.0.0.nupkg.sha512",
     "C:\\Users\\awilu\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
-    "C:\\Users\\awilu\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
-    "C:\\Users\\awilu\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512",
+    "C:\\Users\\awilu\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\awilu\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\awilu\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\awilu\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\awilu\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",

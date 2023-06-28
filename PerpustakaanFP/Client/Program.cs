@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<BookRepository>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

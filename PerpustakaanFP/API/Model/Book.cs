@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace API.Model
 {
@@ -20,6 +21,7 @@ namespace API.Model
         public string PublicationYear { get; set; }
 
         //cardinality
+        [JsonIgnore]
         public Borrow Borrow { get; set; }
     }
 }

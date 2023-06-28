@@ -198,16 +198,6 @@ namespace API.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("API.Model.Book", b =>
-                {
-                    b.HasOne("API.Model.Borrow", "Borrow")
-                        .WithMany("Book")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.Navigation("Borrow");
-                });
-
             modelBuilder.Entity("API.Model.Borrow", b =>
                 {
                     b.HasOne("API.Model.Member", "Member")
