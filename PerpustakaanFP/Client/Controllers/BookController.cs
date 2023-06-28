@@ -1,9 +1,11 @@
 ﻿using API.Model;
 using Client.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly BookRepository repository;

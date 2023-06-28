@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MemberController : GeneralController<IMemberRepository, Member, int>
+    public class MemberController : GeneralController<IMemberRepository, Member, string>
     {
         public MemberController(IMemberRepository repository) : base(repository)
         {

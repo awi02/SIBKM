@@ -9,5 +9,6 @@ namespace API.Repositories.Data
     {
         public BorrowRepository(MyContext context) : base(context) { }
 
+
     }
 }

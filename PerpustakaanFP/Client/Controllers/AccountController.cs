@@ -31,6 +31,16 @@ public class AccountController : Controller
         return View();
     }
 
+    public async Task<IActionResult> Register(RegisterVM register)
+    {
+        var result = await repository.Register(register);
+        if (result.Code == 200)
+        {
+            return RedirectToAction("login", "account");
+        }
+        return View();
+    }
+
     [HttpGet("/Logout")]
     public IActionResult Logout()
     {

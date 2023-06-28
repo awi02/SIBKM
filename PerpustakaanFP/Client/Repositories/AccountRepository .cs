@@ -31,6 +31,17 @@ namespace Client.Repositories
             return entityVM;
         }
 
+        public async Task<ResponseDataVM<string>> Register(RegisterVM register)
+        {
+            ResponseDataVM<string> entityVM = null;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(register), Encoding.UTF8, "application/json");
+            using (var response = httpClient.PostAsync(request + "Register", content).Result)
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entityVM = JsonConvert.DeserializeObject<ResponseDataVM<string>>(apiResponse);
+            }
+            return entityVM;
+        }
 
         public async Task<ResponseDataVM<List<Accounts>>> Get()
         {

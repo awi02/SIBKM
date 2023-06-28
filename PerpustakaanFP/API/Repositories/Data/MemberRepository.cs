@@ -6,7 +6,7 @@ using API.Repositories.Interface;
 
 namespace API.Repositories.Data
 {
-    public class MemberRepository : GeneralRepositories<Member, int, MyContext>, IMemberRepository
+    public class MemberRepository : GeneralRepositories<Member, string, MyContext>, IMemberRepository
     {
         public MemberRepository(MyContext context) : base(context) { }
         public string GetFullNameByEmail(string email)

@@ -5,7 +5,7 @@ using API.Repositories.Interface;
 
 namespace API.Repositories.Data
 {
-    public class BookRepository : GeneralRepositories<Book, int, MyContext>, IBookRepository
+    public class BookRepository : GeneralRepositories<Book, string, MyContext>, IBookRepository
     {
         public BookRepository(MyContext context) : base(context) { }
         public IEnumerable<Book> GetByName(string name)

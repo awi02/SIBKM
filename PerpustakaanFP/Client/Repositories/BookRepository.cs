@@ -64,7 +64,6 @@ namespace Client.Repositories
             }
             return entityVM;
         }
-
         public async Task<ResponseDataVM<Book>> Delete(string id)
         {
             ResponseDataVM<Book> entityVM = null;

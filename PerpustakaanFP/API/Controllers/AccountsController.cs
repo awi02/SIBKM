@@ -24,11 +24,11 @@ namespace API.Controllers
         public AccountsController(
             IAccountsRepository repos,
             ITokenService tokenService,
-            IMemberRepository employeeRepository,
+            IMemberRepository memberRepository,
             IAccountRoleRepository accountRoleRepository) : base(repos)
         {
             _tokenService = tokenService;
-            _memberRepository = employeeRepository;
+            _memberRepository = memberRepository;
             _accountRoleRepository = accountRoleRepository;
         }
         [AllowAnonymous]

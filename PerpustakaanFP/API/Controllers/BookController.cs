@@ -13,7 +13,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : GeneralController<IBookRepository, Book, int>
+    public class BookController : GeneralController<IBookRepository, Book, string>
     {
         public BookController(IBookRepository repository) : base(repository)
         {
