@@ -6,19 +6,35 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstDb : Migration
+    public partial class idk : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "char(8)", nullable: false),
+                    BookTitle = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Author = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Type = table.Column<string>(type: "varchar(50)", nullable: false),
+                    Publisher = table.Column<string>(type: "varchar(255)", nullable: false),
+                    PublicationYear = table.Column<string>(type: "varchar(4)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "varchar(25)", nullable: false),
-                    LastName = table.Column<string>(type: "varchar(25)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "varchar(20)", nullable: false),
+                    Id = table.Column<string>(type: "char(8)", nullable: false),
+                    FirstName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    LastName = table.Column<string>(type: "varchar(50)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "varchar(50)", nullable: false),
                     Address = table.Column<string>(type: "varchar(255)", nullable: false),
                     Email = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
@@ -31,8 +47,9 @@ namespace API.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    name = table.Column<string>(type: "varchar(100)", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "varchar(50)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +60,7 @@ namespace API.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    memberId = table.Column<int>(type: "int", nullable: false),
+                    memberId = table.Column<string>(type: "char(8)", nullable: false),
                     password = table.Column<string>(type: "varchar(255)", nullable: false)
                 },
                 constraints: table =>
@@ -61,33 +78,36 @@ namespace API.Migrations
                 name: "Borrow",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OfficerId = table.Column<int>(type: "int", nullable: false),
-                    MemberId = table.Column<int>(type: "int", nullable: false),
-                    BookId = table.Column<int>(type: "int", nullable: false),
-                    BorrowDate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Returndate = table.Column<DateTime>(type: "datetime", nullable: false),
-                    Fine = table.Column<int>(type: "int", nullable: false)
+                    MemberId = table.Column<string>(type: "char(8)", nullable: true),
+                    BookId = table.Column<string>(type: "char(8)", nullable: true),
+                    BorrowDate = table.Column<DateTime>(type: "datetime", nullable: true),
+                    Returndate = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Borrow", x => x.Id);
+                    table.PrimaryKey("PK_Borrow", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Borrow_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Borrow_Member_MemberId",
                         column: x => x.MemberId,
                         principalTable: "Member",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "AccountRoles",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<int>(type: "int", nullable: false),
-                    role_id = table.Column<int>(type: "int", nullable: false)
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<string>(type: "char(8)", nullable: false),
+                    Roleid = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,37 +116,12 @@ namespace API.Migrations
                         name: "FK_AccountRoles_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
-                        principalColumn: "memberId",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "memberId");
                     table.ForeignKey(
-                        name: "FK_AccountRoles_Roles_role_id",
-                        column: x => x.role_id,
+                        name: "FK_AccountRoles_Roles_Roleid",
+                        column: x => x.Roleid,
                         principalTable: "Roles",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Book",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BookTitle = table.Column<string>(type: "varchar(255)", nullable: false),
-                    Author = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Type = table.Column<string>(type: "varchar(50)", nullable: false),
-                    Publisher = table.Column<string>(type: "varchar(255)", nullable: false),
-                    PublicationYear = table.Column<string>(type: "varchar(4)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Book", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Book_Borrow_Id",
-                        column: x => x.Id,
-                        principalTable: "Borrow",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -135,9 +130,14 @@ namespace API.Migrations
                 column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccountRoles_role_id",
+                name: "IX_AccountRoles_Roleid",
                 table: "AccountRoles",
-                column: "role_id");
+                column: "Roleid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Borrow_BookId",
+                table: "Borrow",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Borrow_MemberId",
@@ -152,7 +152,7 @@ namespace API.Migrations
                 name: "AccountRoles");
 
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "Borrow");
 
             migrationBuilder.DropTable(
                 name: "Accounts");
@@ -161,7 +161,7 @@ namespace API.Migrations
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Borrow");
+                name: "Book");
 
             migrationBuilder.DropTable(
                 name: "Member");

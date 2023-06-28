@@ -14,29 +14,6 @@ namespace API.Repositories.Data
         {
             int result = 0;
 
-            //insert to borrow table
-            var borrow = new Borrow
-            {
-                OfficerId = registerVM.OfficerId,
-                MemberId = registerVM.MemberId,
-                BookId = registerVM.BookId,
-                BorrowDate = DateTime.Now
-            };
-            _context.Set<Borrow>().Add(borrow);
-            result += _context.SaveChanges();
-
-            //insert to book table
-            var book = new Book
-            {
-                BookTitle = registerVM.BookTitle,
-                Author = registerVM.Author,
-                Type = registerVM.Type,
-                Publisher = registerVM.Publisher,
-                PublicationYear = registerVM.PublicationYear,
-            };
-            _context.Set<Borrow>().Add(borrow);
-            result += _context.SaveChanges();
-
             //insert to member table
             var member = new Member
             {
@@ -63,7 +40,7 @@ namespace API.Repositories.Data
             var accountRoles = new AccountRoles
             {
                 AccountId = registerVM.Id,
-                role_id = 2 // member
+                Roleid = 2 // member
             };
             _context.Set<AccountRoles>().Add(accountRoles);
             result += _context.SaveChanges();

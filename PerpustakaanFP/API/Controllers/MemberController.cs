@@ -7,7 +7,7 @@ using API.Repositories.Data;
 using API.Repositories.Interface;
 using API.ViewModels;
 using API.Base;
-
+using API.Models;
 
 namespace API.Controllers
 {
