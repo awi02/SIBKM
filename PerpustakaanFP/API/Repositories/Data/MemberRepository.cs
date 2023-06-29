@@ -9,6 +9,7 @@ namespace API.Repositories.Data
     public class MemberRepository : GeneralRepositories<Member, string, MyContext>, IMemberRepository
     {
         public MemberRepository(MyContext context) : base(context) { }
+
         public string GetFullNameByEmail(string email)
         {
             var member = _context.Member.FirstOrDefault(m => m.Email == email)!;

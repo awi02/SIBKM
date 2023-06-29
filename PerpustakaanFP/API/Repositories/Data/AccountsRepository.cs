@@ -31,7 +31,7 @@ namespace API.Repositories.Data
             var accounts = new Accounts
             {
                 memberId = registerVM.Id,
-                password = registerVM.Password
+                password = Hashing.HashPassword(registerVM.Password)
             };
             _context.Set<Accounts>().Add(accounts);
             result += _context.SaveChanges();
@@ -40,7 +40,7 @@ namespace API.Repositories.Data
             var accountRoles = new AccountRoles
             {
                 AccountId = registerVM.Id,
-                Roleid = 2 // member
+                Roleid = 1 // member
             };
             _context.Set<AccountRoles>().Add(accountRoles);
             result += _context.SaveChanges();

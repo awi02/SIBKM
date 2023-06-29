@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Client.Controllers
 {
+
     [Authorize]
     public class BookController : Controller
     {
@@ -39,6 +40,7 @@ namespace Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create(Book book)
         {
             var result = await repository.Post(book);
@@ -58,6 +60,7 @@ namespace Client.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(Book book)
         {
             if (ModelState.IsValid)
@@ -77,6 +80,7 @@ namespace Client.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(string id)
         {
             var result = await repository.Get(id);
@@ -95,6 +99,7 @@ namespace Client.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(string id)
         {
             var result = await repository.Get(id);

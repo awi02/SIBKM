@@ -8,7 +8,5 @@ namespace API.Repositories.Data
     public class BorrowRepository : GeneralRepositories<Borrow, int, MyContext>, IBorrowRepository
     {
         public BorrowRepository(MyContext context) : base(context) { }
-
-
     }
 }

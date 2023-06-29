@@ -12,12 +12,8 @@
         }
         public static bool ValidatePassword(string password, string correctHash)
         {
-            if (password == correctHash)
-            {
-                return true;
-            }
-            return false;
-            /*return BCrypt.Net.BCrypt.Verify(password, correctHash);*/
+            return BCrypt.Net.BCrypt.Verify(password, correctHash);
         }
     }
 }
+

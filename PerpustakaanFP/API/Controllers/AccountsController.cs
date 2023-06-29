@@ -14,7 +14,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles ="admin")]
+    [Authorize(Roles ="admin")]
     public class AccountsController : GeneralController<IAccountsRepository, Accounts, string>
     {
         private readonly ITokenService _tokenService;
@@ -48,7 +48,7 @@ namespace API.Controllers
 
             var claims = new List<Claim>() {
             new Claim("Email", loginVM.Email),
-            new Claim("FullName", _memberRepository.GetFullNameByEmail(loginVM.Email))
+            new Claim("FullName", _memberRepository.GetFullNameByEmail(loginVM.Email)),
             };
 
             var getRoles = _accountRoleRepository.GetRolesByEmail(loginVM.Email);
