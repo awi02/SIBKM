@@ -6,6 +6,6 @@
     "\\API\\Controllers",
     "\\Client"
   ],
-  "SelectedNode": "\\Client",
+  "SelectedNode": "\\API\\Context\\MyContext.cs",
   "PreviewInSolutionExplorer": false
 }

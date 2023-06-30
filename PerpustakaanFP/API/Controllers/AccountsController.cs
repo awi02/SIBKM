@@ -49,8 +49,8 @@ namespace API.Controllers
             var claims = new List<Claim>() {
             new Claim("Email", loginVM.Email),
             new Claim("FullName", _memberRepository.GetFullNameByEmail(loginVM.Email)),
+            new Claim("MemberID",_memberRepository.GetMemberIdByEmail(loginVM.Email)),
             };
-
             var getRoles = _accountRoleRepository.GetRolesByEmail(loginVM.Email);
             foreach (var role in getRoles)
             {
